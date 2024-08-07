@@ -1,4 +1,4 @@
-# name=Forward Pedals to Active Generator
+# name=Simple: Pedals to Active Generator
 """
 A simple script that forwards pedal events to the active generator plugin.
 
@@ -12,10 +12,10 @@ from common import get_active_generator_index, is_plugin_vst, is_control_mapped
 try:
     from fl_classes import FlMidiMsg
 except ImportError:
-    FlMidiMsg = 'FlMidiMsg'  # type: ignore
+    pass
 
 
-def OnControlChange(msg: FlMidiMsg) -> None:
+def OnControlChange(msg: 'FlMidiMsg') -> None:
     # If the control has been manually mapped, ignore it
     if is_control_mapped(msg):
         return

@@ -12,7 +12,7 @@ import device
 try:
     from fl_classes import FlMidiMsg
 except ImportError:
-    FlMidiMsg = 'FlMidiMsg'  # type: ignore
+    pass
 
 
 last_active_generator = 0
@@ -21,11 +21,11 @@ last_active_plugin = (0, -1)
 """Index of the last active generator or FX plugin"""
 
 
-def is_control_mapped(msg: FlMidiMsg) -> bool:
+def is_control_mapped(msg: 'FlMidiMsg') -> bool:
     """Returns whether a control has been mapped by the user"""
     port = device.getPortNumber()
     event_id = midi.EncodeRemoteControlID(port, msg.status & 0xF, msg.data1)
-    return device.getLinkedInfo(event_id) != -1
+    return device.findEventID(event_id) != midi.REC_InvalidID
 
 
 def is_plugin_vst(index: int, slotIndex: int = -1) -> bool:

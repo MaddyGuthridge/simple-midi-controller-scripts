@@ -1,4 +1,4 @@
-# name=Forward CCs to Active Plugin
+# name=Simple: CCs to Active Plugin
 """
 A simple script that forwards CC events to the active plugin.
 
@@ -12,11 +12,10 @@ from common import get_active_plugin_index, is_plugin_vst, is_control_mapped
 try:
     from fl_classes import FlMidiMsg
 except ImportError:
-    FlMidiMsg = 'FlMidiMsg'  # type: ignore
+    pass
 
 
-def OnControlChange(msg: FlMidiMsg) -> None:
-    # If the control has been manually mapped, ignore it
+def OnControlChange(msg: 'FlMidiMsg') -> None:
     if is_control_mapped(msg):
         return
     plug_index = get_active_plugin_index()
