@@ -36,4 +36,3 @@ def get_active_generator_index() -> int:
     # Otherwise use the cached value
     else:
         return last_active_generator
-

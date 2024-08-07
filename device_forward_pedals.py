@@ -1,4 +1,9 @@
-# name=Forward Pedal Events to Active Plugin
+# name=Forward Pedals to Active Generator
+"""
+A simple script that forwards pedal events to the active generator plugin.
+
+Author: Maddy Guthridge
+"""
 import plugins
 from common import get_active_generator_index, is_plugin_vst
 try:
