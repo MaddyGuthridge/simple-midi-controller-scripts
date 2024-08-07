@@ -1,7 +1,7 @@
 # name=Simple: Notes and CCs to All Selected Generators
 """
-A simple script that forwards CC and note events to all selected generator
-plugins on the channel rack.
+Forwards CC and note events to all selected generator plugins on the channel
+rack.
 
 If the active plugin is an FL Studio built-in plugin, events will be ignored,
 allowing FL Studio to handle the event itself.

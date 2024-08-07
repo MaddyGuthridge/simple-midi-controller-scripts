@@ -1,6 +1,6 @@
 # name=Simple: Pedals to Active Generator
 """
-A simple script that forwards pedal events to the active generator plugin.
+Forwards pedal events to the active generator plugin.
 
 If the active plugin is an FL Studio built-in plugin, events will be ignored,
 allowing FL Studio to handle the event itself.

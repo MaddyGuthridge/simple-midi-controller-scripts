@@ -1,6 +1,6 @@
 # name=Simple: CCs to Active Plugin
 """
-A simple script that forwards CC events to the active plugin.
+Forwards CC events to the active plugin.
 
 If the active plugin is an FL Studio built-in plugin, events will be ignored,
 allowing FL Studio to handle the event itself.
