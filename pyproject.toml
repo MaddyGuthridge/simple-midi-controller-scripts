@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "simple-midi-controller-scripts"
+version = "0.1.0"
+description = "A small collection of simple MIDI controller scripts to improve user experience when using MIDI controllers with FL Studio."
+authors = ["Maddy Guthridge <hello@maddyguthridge.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fl-studio-api-stubs = "^37.0.1"
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.5.6"
+mypy = "^1.11.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
