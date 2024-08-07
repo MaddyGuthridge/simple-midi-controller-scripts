@@ -2,10 +2,13 @@
 """
 A simple script that forwards CC events to the active plugin.
 
+If the active plugin is an FL Studio built-in plugin, events will be ignored,
+allowing FL Studio to handle the event itself.
+
 Author: Maddy Guthridge
 """
 import plugins
-from common import get_active_plugin_index, is_plugin_vst
+from common import get_active_plugin_index, is_plugin_vst, is_control_mapped
 try:
     from fl_classes import FlMidiMsg
 except ImportError:
@@ -13,6 +16,9 @@ except ImportError:
 
 
 def OnControlChange(msg: FlMidiMsg) -> None:
+    # If the control has been manually mapped, ignore it
+    if is_control_mapped(msg):
+        return
     plug_index = get_active_plugin_index()
     if is_plugin_vst(*plug_index):
         plugins.setParamValue(
@@ -21,3 +27,4 @@ def OnControlChange(msg: FlMidiMsg) -> None:
             *plug_index,
             useGlobalIndex=True,
         )
+        msg.handled = True

@@ -8,12 +8,24 @@ import ui
 import midi
 import channels
 import mixer
+import device
+try:
+    from fl_classes import FlMidiMsg
+except ImportError:
+    FlMidiMsg = 'FlMidiMsg'  # type: ignore
 
 
 last_active_generator = 0
 """Index of the last active generator plugin"""
 last_active_plugin = (0, -1)
 """Index of the last active generator or FX plugin"""
+
+
+def is_control_mapped(msg: FlMidiMsg) -> bool:
+    """Returns whether a control has been mapped by the user"""
+    port = device.getPortNumber()
+    event_id = midi.EncodeRemoteControlID(port, msg.status & 0xF, msg.data1)
+    return device.getLinkedInfo(event_id) != -1
 
 
 def is_plugin_vst(index: int, slotIndex: int = -1) -> bool:
