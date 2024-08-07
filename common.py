@@ -7,10 +7,13 @@ import plugins
 import ui
 import midi
 import channels
+import mixer
 
 
 last_active_generator = 0
 """Index of the last active generator plugin"""
+last_active_plugin = (0, -1)
+"""Index of the last active generator or FX plugin"""
 
 
 def is_plugin_vst(index: int, slotIndex: int = -1) -> bool:
@@ -22,7 +25,7 @@ def is_plugin_vst(index: int, slotIndex: int = -1) -> bool:
 
 def get_active_generator_index() -> int:
     """
-    Returns the track index (and optionally slot index) of the active plugin
+    Returns the track index of the active generator plugin
     """
     global last_active_generator
     # Update the current last active plugin if a plugin or the channel rack is
@@ -36,3 +39,30 @@ def get_active_generator_index() -> int:
     # Otherwise use the cached value
     else:
         return last_active_generator
+
+
+def get_active_plugin_index() -> tuple[int, int]:
+    """
+    Returns the track index (and optionally slot index) of the active plugin.
+    """
+    global last_active_plugin
+    # Update the current last active plugin if a plugin or the channel rack is
+    # focused
+    if (
+        ui.getFocused(midi.widChannelRack)
+        or ui.getFocused(midi.widPluginGenerator)
+    ):
+        last_active_plugin = (channels.channelNumber(), -1)
+        return last_active_plugin
+    # Or if the mixer or an FX plugin is focused
+    elif (
+        ui.getFocused(midi.widMixer)
+        or ui.getFocused(midi.widPluginEffect)
+    ):
+        fx_plug = mixer.getActiveEffectIndex()
+        if fx_plug is not None:
+            last_active_plugin = fx_plug
+        return last_active_plugin
+    # Otherwise use the cached value
+    else:
+        return last_active_plugin

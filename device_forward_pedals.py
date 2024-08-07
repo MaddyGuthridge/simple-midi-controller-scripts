@@ -17,7 +17,7 @@ def OnControlChange(msg: FlMidiMsg) -> None:
         generator_index = get_active_generator_index()
         if is_plugin_vst(generator_index):
             plugins.setParamValue(
-                msg.data2,
+                msg.data2 / 127,
                 4096 + 0x40,
                 generator_index,
                 useGlobalIndex=True,
